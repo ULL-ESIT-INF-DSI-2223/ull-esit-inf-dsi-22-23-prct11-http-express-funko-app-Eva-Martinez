@@ -6,7 +6,7 @@
   ],
   "compilerOptions": {
     "target": "ES2022",
-    "module": "CommonJS",
+    "module": "Node16",
     "declaration": true,
     "rootDir": "./src",
     "outDir": "./dist",
