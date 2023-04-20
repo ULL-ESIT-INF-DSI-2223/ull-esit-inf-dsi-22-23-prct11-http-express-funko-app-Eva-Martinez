@@ -9,4 +9,9 @@ En este informe se redactan las pautas seguidas para la realización de la prác
 Se procedió a la aceptación de la tarea en el *GitHub Classroom*.
 
 Ahora nos encontramos con tres *badges* los cuales representan el éxito los **Tests** realizados, la herramienta **Coveralls** y **Sonar-Cloud**.
-    
+
+[![Tests](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/tests.yml)
+[![Coveralls](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/coveralls.yml/badge.svg?branch=main)](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/coveralls.yml)
+[![Sonar-Cloud](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/sonarcloud.yml/badge.svg?branch=main)](https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/sonarcloud.yml)
+
+# Ejercicio
