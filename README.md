@@ -53,7 +53,7 @@ La funcionalidad de la misma es crear un objeto `FunkoPop` y añadirlo en format
 
 - `EliminarFunko()`: 
 
-La funcionalidad de la misma es eliminar un funko de la colección del usuario insertado, para ello en primer lugar se verifica que el id del funko a insertar exista en la colección mediante la función **ExisteFunko()**. Si existe un funko con dicho id se procederá a la examinación de la base de datos, específicamente del usuario mediante la API síncrona **`readdirSync(`${ruta}/${usuario}`)`**. A continuación se realizará un *for-of* de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a la lectura del contenido de los mismo mediante **`readFileSync(archivo, 'utf-8')`**, y con este contenido obtenido gracias a dicha lectura se procederá convertir los datos de tipo *JSON* en un *string* para obtener así su id **json.id**. 
+La funcionalidad de la misma es eliminar un funko de la colección del usuario insertado, para ello en primer lugar se verifica que el id del funko a insertar exista en la colección mediante la función **ExisteFunko()**. Si existe un funko con dicho id se procederá a la examinación de la base de datos, específicamente del usuario mediante la API síncrona **`readdirSync(${ruta}/${usuario})`**. A continuación se realizará un *for-of* de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a la lectura del contenido de los mismo mediante **`readFileSync(archivo, 'utf-8')`**, y con este contenido obtenido gracias a dicha lectura se procederá convertir los datos de tipo *JSON* en un *string* para obtener así su id **json.id**. 
 
 En cada iteración se comparará dicho id con el id del funko a eliminar, y si coinciden se establecerá la ruta del fichero a eliminar como la utilizada para obtener ese id, y por último se utilizará para la supresión del fichero la API síncrona **`unlinkSync(rutaArchivo)`** seguido de retornar *true* indicando que el funko se ha eliminado correctamente para así enviar un mensaje informativo. Pero si no existiese dicho funko se retornará *false* para indicar así que se debe enviar un mensaje de error.
 
@@ -63,7 +63,7 @@ La funcionalidad de la misma es modificar un funko de la colección del usuario 
 
 - `ListarColeccionFunkos()`:
 
-La funcionalidad de la misma es listar la colección de funkos del usuario seleccionado, para ello en primer lugar se examinará la base de datos, específicamente del usuario mediante la API síncrona **`readdirSync(`${ruta}/${usuario}`)`**. A continuación se realizará un *for-of* de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a la lectura del contenido de los mismo mediante **`readFileSync(archivo, 'utf-8')`**, y con este contenido obtenido gracias a dicha lectura se procederá convertir los datos de tipo *JSON* en un *string* para obtener así los diferentes atributos del json utilizados en combinación con el tipo *FunkoPop* para la creación de un objeto del mismo, el cual se añadirá a un vector de dicho tipo *FunkoPop* que será el retornado en el mensaje informativo al usuario.
+La funcionalidad de la misma es listar la colección de funkos del usuario seleccionado, para ello en primer lugar se examinará la base de datos, específicamente del usuario mediante la API síncrona **`readdirSync(${ruta}/${usuario})`**. A continuación se realizará un *for-of* de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a la lectura del contenido de los mismo mediante **`readFileSync(archivo, 'utf-8')`**, y con este contenido obtenido gracias a dicha lectura se procederá convertir los datos de tipo *JSON* en un *string* para obtener así los diferentes atributos del json utilizados en combinación con el tipo *FunkoPop* para la creación de un objeto del mismo, el cual se añadirá a un vector de dicho tipo *FunkoPop* que será el retornado en el mensaje informativo al usuario.
 
 - `EnseñarFunko()`:
 
@@ -73,7 +73,7 @@ Por último cabe destacar el uso de las funciones de comprobación o creación d
 
 - `ExisteUsuario()`:
 
-La funcionalidad de esta es comprobar si el usuario existe, para ello se realiza la lectura de los usuarios de la base de datos mediante la API síncrona **`readdirSync(ruta)`**. A continuación se realizará un *for-of* de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a extraer sus datos con **`statSync(`${ruta}/${elemento}`)`** los cuales se utilizarán para comprobar si es un directorio mediante el método *isDirectory()* y que se nombre sea igual al del usuario a comprobar. Si se cumplen estas condiciones de retornará *true*, pero si tras las iteraciones no coinciden se retornará *false* para indicar así que se debe enviar un mensaje de error.
+La funcionalidad de esta es comprobar si el usuario existe, para ello se realiza la lectura de los usuarios de la base de datos mediante la API síncrona **`readdirSync(ruta)`**. A continuación se realizará un *for-of* de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a extraer sus datos con **`statSync(${ruta}/${elemento})`** los cuales se utilizarán para comprobar si es un directorio mediante el método *isDirectory()* y que se nombre sea igual al del usuario a comprobar. Si se cumplen estas condiciones de retornará *true*, pero si tras las iteraciones no coinciden se retornará *false* para indicar así que se debe enviar un mensaje de error.
 
 - `ExisteFunko()`: 
 
@@ -81,7 +81,7 @@ La funcionalidad de esta es comprobar si el funko con dicha id existe en la cole
 
 - `CrearUsuario()`:
 
-La funcionalidad de esta es crear a un usuario, para ello se hará uso de la API síncrona **`mkdirSync(`${ruta}/${usuario}`, { recursive: true })`** la cual en primer lugar contiene la ruta a crear, y en segundo lugar la opción `recursive` activada para permitir así la creación de directorios padre.
+La funcionalidad de esta es crear a un usuario, para ello se hará uso de la API síncrona **`mkdirSync(${ruta}/${usuario}, { recursive: true })`** la cual en primer lugar contiene la ruta a crear, y en segundo lugar la opción `recursive` activada para permitir así la creación de directorios padre.
 
 # Conclusiones
 
