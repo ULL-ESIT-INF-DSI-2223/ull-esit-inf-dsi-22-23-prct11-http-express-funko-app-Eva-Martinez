@@ -1,6 +1,7 @@
 {
   "entryPoints": [
-    "./src/app.ts"
+    "./src/ejercicioFunko/funkoapp.ts",
+    "./src/ejercicioFunko/funkotypes.ts"
   ],
   "out": "./docs"
 }

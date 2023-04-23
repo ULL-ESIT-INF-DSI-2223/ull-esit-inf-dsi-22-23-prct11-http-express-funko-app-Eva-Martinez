@@ -19,7 +19,68 @@
 <p><a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/tests.yml"><img src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/tests.yml/badge.svg?branch=main" alt="Tests"></a>
 <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/coveralls.yml"><img src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/coveralls.yml/badge.svg?branch=main" alt="Coveralls"></a>
 <a href="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/sonarcloud.yml"><img src="https://github.com/ULL-ESIT-INF-DSI-2223/ull-esit-inf-dsi-22-23-prct11-http-express-funko-app-Eva-Martinez/actions/workflows/sonarcloud.yml/badge.svg?branch=main" alt="Sonar-Cloud"></a></p>
-<a id="md:ejercicio" class="tsd-anchor"></a><h1><a href="#$ejercicio" style="color:inherit;text-decoration:none">Ejercicio</a></h1></div></div>
+<a id="md:ejercicio" class="tsd-anchor"></a><h1><a href="#$ejercicio" style="color:inherit;text-decoration:none">Ejercicio</a></h1><a id="md:fichero-funko-type" class="tsd-anchor"></a><h2><a href="#$fichero-funko-type" style="color:inherit;text-decoration:none">Fichero Funko Type</a></h2><p>Esta fichero contiene los tipos <code>FunkoPop</code>, el cual permite la creación de objetos de tipo <strong>FunkoPop</strong> que contienen los atributos:</p>
+<ul>
+<li><code>id</code>: Identificador del Funko.</li>
+<li><code>nombre</code>: Nombre del Funko.</li>
+<li><code>descripcion</code>: Descripción del Funko.</li>
+<li><code>tipo</code>: Tipo del Funko.</li>
+<li><code>genero</code>: Género del Funko. </li>
+<li><code>franquicia</code>: Franquicia del Funko.</li>
+<li><code>numero</code>: Número del Funko.</li>
+<li><code>exclusivo</code>: Condición exclusivo del Funko.</li>
+<li><code>caracteristicas_especiales</code>: Características Especiales del Funko.</li>
+<li><code>valor_mercado</code>: Valor de mercado del Funko.</li>
+</ul>
+<p>Y <code>ResponseType</code>, el cual contiene los atributos:</p>
+<ul>
+<li><code>success</code>: Éxito de la operación.</li>
+<li><code>funkoPops</code>: Conjunto o único elemento <em>FunkoPop</em> (Opcional).</li>
+</ul>
+<a id="md:fichero-funko-app" class="tsd-anchor"></a><h2><a href="#$fichero-funko-app" style="color:inherit;text-decoration:none">Fichero Funko App</a></h2><p>Este fichero contiene las funciones utilizadas en los diferentes parámetros de petición:</p>
+<ul>
+<li><code>post</code>: Añadir un Funko a una colección, revisando por una parte que el usuario exista para así poder invocar a su función correspondiente, o bien que no exista y por lo tanto lo cree y llame a dicha función.</li>
+<li><code>patch</code>: Modificar un Funko de una colección de un usuario específico, revisando por una parte que el usuario exista para así poder invocar a su función correspondiente, o bien que no exista y por lo tanto muestre un mensaje de error.</li>
+<li><code>delete</code>: Eliminar un Funko de una colección de un usuario específico, revisando por una parte que el usuario exista para así poder invocar a su función correspondiente, o bien que no exista y por lo tanto muestre un mensaje de error.</li>
+<li><code>get</code>: Lista una colección de un usuario específico o un único funko de dicha colección, revisando por una parte que el usuario exista para así poder invocar a su función correspondiente, o bien que no exista y por lo tanto muestre un mensaje de error.</li>
+</ul>
+<p>Dichas funciones son las siguientes:</p>
+<ul>
+<li><code>AñadirFunko()</code>:</li>
+</ul>
+<p>La funcionalidad de la misma es crear un objeto <code>FunkoPop</code> y añadirlo en formato <em><strong>JSON</strong></em> a la colección, para ello en primer lugar se verifica que el id del funko a insertar sea diferente de los ya existentes en la colección mediante la función <strong>ExisteFunko()</strong>. Si existe un funko con dicho id se retornará <em>false</em> para indicar así que se debe enviar un mensaje de error, pero si no se creará el objeto <code>FunkoPop</code>, se instanciará la ruta de la base de datos para poder así crear el fichero <em>JSON</em> y se creará dicho fichero mediante la API síncrona <strong><code>writeFileSync(rutaFichero, JSON.stringify(funko))</code></strong>. Como se puede apreciar se inserta dicha ruta mencionada anteriormente y como valor el objeto <code>FunkoPop</code> convertido en formato <em>JSON</em>, y por último se retornará <em>true</em> indicando que el funko se ha agregado correctamente para así enviar un mensaje informativo.</p>
+<ul>
+<li><code>EliminarFunko()</code>:</li>
+</ul>
+<p>La funcionalidad de la misma es eliminar un funko de la colección del usuario insertado, para ello en primer lugar se verifica que el id del funko a insertar exista en la colección mediante la función <strong>ExisteFunko()</strong>. Si existe un funko con dicho id se procederá a la examinación de la base de datos, específicamente del usuario mediante la API síncrona <strong><code>readdirSync(</code>${ruta}/${usuario}<code>)</code></strong>. A continuación se realizará un <em>for-of</em> de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a la lectura del contenido de los mismo mediante <strong><code>readFileSync(archivo, &#39;utf-8&#39;)</code></strong>, y con este contenido obtenido gracias a dicha lectura se procederá convertir los datos de tipo <em>JSON</em> en un <em>string</em> para obtener así su id <strong>json.id</strong>. </p>
+<p>En cada iteración se comparará dicho id con el id del funko a eliminar, y si coinciden se establecerá la ruta del fichero a eliminar como la utilizada para obtener ese id, y por último se utilizará para la supresión del fichero la API síncrona <strong><code>unlinkSync(rutaArchivo)</code></strong> seguido de retornar <em>true</em> indicando que el funko se ha eliminado correctamente para así enviar un mensaje informativo. Pero si no existiese dicho funko se retornará <em>false</em> para indicar así que se debe enviar un mensaje de error.</p>
+<ul>
+<li><code>ModificarFunko()</code>:</li>
+</ul>
+<p>La funcionalidad de la misma es modificar un funko de la colección del usuario seleccionado, para ello en primer lugar se verifica que el id del funko a modificar sea diferente de los ya existentes en la colección mediante la función <strong>ExisteFunko()</strong>. Si existe un funko con dicho id se eliminará de la colección, mediante la función <code>EliminarFunko()</code>, se agregará a la colección el funko modificado, mediante la función <code>AñadirFunko()</code>, y se retornará <em>true</em> indicando que el funko se ha modificado correctamente para así enviar un mensaje informativo. Pero si no existe el funko se retornará <em>false</em> para indicar así que se debe enviar un mensaje de error.</p>
+<ul>
+<li><code>ListarColeccionFunkos()</code>:</li>
+</ul>
+<p>La funcionalidad de la misma es listar la colección de funkos del usuario seleccionado, para ello en primer lugar se examinará la base de datos, específicamente del usuario mediante la API síncrona <strong><code>readdirSync(</code>${ruta}/${usuario}<code>)</code></strong>. A continuación se realizará un <em>for-of</em> de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a la lectura del contenido de los mismo mediante <strong><code>readFileSync(archivo, &#39;utf-8&#39;)</code></strong>, y con este contenido obtenido gracias a dicha lectura se procederá convertir los datos de tipo <em>JSON</em> en un <em>string</em> para obtener así los diferentes atributos del json utilizados en combinación con el tipo <em>FunkoPop</em> para la creación de un objeto del mismo, el cual se añadirá a un vector de dicho tipo <em>FunkoPop</em> que será el retornado en el mensaje informativo al usuario.</p>
+<ul>
+<li><code>EnseñarFunko()</code>:</li>
+</ul>
+<p>La funcionalidad de esta es mostrar la información de un funko de la colección de un usuario específico, para ello se realiza una combinación entre <em><code>EliminarFunko()</code></em> y <em><code>ListarColeccionFunkos()</code></em> ya que extrae el id comparandolo con el insertado, si se cumple dicha condición se realizará el retorno de los datos del funko mediante un objeto de tipo <em>FunkoPop</em>. En función de la existencia del funko en la colección se mostrará un mensaje informativo o un mensaje de error.</p>
+<p>Por último cabe destacar el uso de las funciones de comprobación o creación de elementos principales, junto con la inicialización del servidor de la aplicación el cual utiliza los diferentes argumentos nombrados anteriormente seguido del uso de las respectivas funciones y retornando en cada acción un mensaje en formato <strong>JSON</strong> de tipo <em>ResponseType</em>:</p>
+<ul>
+<li><code>ExisteUsuario()</code>:</li>
+</ul>
+<p>La funcionalidad de esta es comprobar si el usuario existe, para ello se realiza la lectura de los usuarios de la base de datos mediante la API síncrona <strong><code>readdirSync(ruta)</code></strong>. A continuación se realizará un <em>for-of</em> de los elementos obtenidos con dicha API síncrona, sobre los cuales se procederá a extraer sus datos con <strong><code>statSync(</code>${ruta}/${elemento}<code>)</code></strong> los cuales se utilizarán para comprobar si es un directorio mediante el método <em>isDirectory()</em> y que se nombre sea igual al del usuario a comprobar. Si se cumplen estas condiciones de retornará <em>true</em>, pero si tras las iteraciones no coinciden se retornará <em>false</em> para indicar así que se debe enviar un mensaje de error.</p>
+<ul>
+<li><code>ExisteFunko()</code>:</li>
+</ul>
+<p>La funcionalidad de esta es comprobar si el funko con dicha id existe en la colección del usuario determinado, para ello se utiliza la misma funcionalidad que para <em><code>EliminarFunko()</code></em> pero si coinciden los ids se retornará <em>true</em> indicando así que existe el funko, sino se retornará <em>false</em> para indicar así que se debe enviar un mensaje de error.</p>
+<ul>
+<li><code>CrearUsuario()</code>:</li>
+</ul>
+<p>La funcionalidad de esta es crear a un usuario, para ello se hará uso de la API síncrona <strong><code>mkdirSync(</code>${ruta}/${usuario}<code>, { recursive: true })</code></strong> la cual en primer lugar contiene la ruta a crear, y en segundo lugar la opción <code>recursive</code> activada para permitir así la creación de directorios padre.</p>
+<a id="md:conclusiones" class="tsd-anchor"></a><h1><a href="#$conclusiones" style="color:inherit;text-decoration:none">Conclusiones</a></h1><p>Todo el ejercicio se ha realizado de manera adecuada a excepción de los tests, los cuales no se han realizado y por lo tanto no pasan correctamente los <em>badges</em>.</p>
+</div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -43,10 +104,22 @@
 <ul>
 <li><a href="#md:informe-realizado-por-eva-martínez-bencomo"><span>Informe realizado por <wbr/>Eva <wbr/>Martínez <wbr/>Bencomo</span></a></li>
 <li><a href="#md:actividades-previas"><span>Actividades <wbr/>Previas</span></a></li>
-<li><a href="#md:ejercicio"><span>Ejercicio</span></a></li></ul></li></ul></div></details></div>
+<li><a href="#md:ejercicio"><span>Ejercicio</span></a></li>
+<li>
+<ul>
+<li><a href="#md:fichero-funko-type"><span>Fichero <wbr/>Funko <wbr/>Type</span></a></li>
+<li><a href="#md:fichero-funko-app"><span>Fichero <wbr/>Funko <wbr/>App</span></a></li></ul></li>
+<li><a href="#md:conclusiones"><span>Conclusiones</span></a></li></ul></li></ul></div></details></div>
 <div class="site-menu">
-<nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4-path"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)" id="icon-4-text"></path></svg><span>ull-<wbr/>esit-<wbr/>inf-<wbr/>dsi-<wbr/>22-<wbr/>23-<wbr/>prct11-<wbr/>http-<wbr/>express-<wbr/>funko-<wbr/>app-<wbr/>eva-<wbr/>martinez</span></a>
-<ul class="tsd-small-nested-navigation"></ul></nav></div></div></div>
+<nav class="tsd-navigation"><a href="index.html" class="current"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4-path"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)" id="icon-4-text"></path></svg><span>ull-<wbr/>esit-<wbr/>inf-<wbr/>dsi-<wbr/>22-<wbr/>23-<wbr/>prct11-<wbr/>http-<wbr/>express-<wbr/>funko-<wbr/>app-<wbr/>eva-<wbr/>martinez</span></a>
+<ul class="tsd-small-nested-navigation">
+<li><a href="modules/funkoapp.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4-path"></use><use href="#icon-4-text"></use></svg><span>funkoapp</span></a></li>
+<li>
+<details class="tsd-index-accordion" data-key="funkotypes"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg><a href="modules/funkotypes.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4-path"></use><use href="#icon-4-text"></use></svg><span>funkotypes</span></a></summary>
+<div class="tsd-accordion-details">
+<ul class="tsd-nested-navigation">
+<li><a href="types/funkotypes.FunkoPop.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-type-alias)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4194304-path"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)" id="icon-4194304-text"></path></svg><span>Funko<wbr/>Pop</span></a></li>
+<li><a href="types/funkotypes.ResponseType.html"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg><span>Response<wbr/>Type</span></a></li></ul></div></details></li></ul></nav></div></div></div>
 <div class="tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
 <div class="overlay"></div></body></html>
